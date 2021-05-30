@@ -1,5 +1,7 @@
 package com.ant.examen.services.imp;
 
+import com.ant.examen.dto.ExamenResponse;
+import com.ant.examen.dto.ImageResponse;
 import com.ant.examen.dto.MessageResponse;
 import com.ant.examen.entities.Entreprise;
 import com.ant.examen.entities.Examen;
@@ -8,13 +10,20 @@ import com.ant.examen.entities.Theme;
 import com.ant.examen.repository.ExamenRepository;
 import com.ant.examen.services.ExamenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Service
 public class ExamenServiceImp implements ExamenService {
-
+    @Value("${upload-dir}")
+    private String uploadDirectory;
     @Autowired
     private ExamenRepository examenRepository;
     @Override
@@ -80,6 +89,35 @@ public class ExamenServiceImp implements ExamenService {
     @Override
     public List<Examen> findByDateExpiration(Date dataExpiration) {
         return examenRepository.findByDateExpiration(dataExpiration);
+    }
+
+    @Override
+    public List<ExamenResponse> findNotExpired() {
+       List<Examen>examens = examenRepository.findByDateExpirationLessThanEqual(new Date());
+        List<ExamenResponse> examenResponses = new ArrayList<>();
+        for (Examen exam: examens){
+            ExamenResponse examenResponse = new ExamenResponse();
+            examenResponse.setExamen(exam);
+
+            if(exam.getEntreprise().getImage()!=null) {
+
+                Path rootLocation = Paths.get(uploadDirectory);
+
+                Path file = rootLocation.resolve(exam.getEntreprise().getImage());
+                try {
+                    byte[] imgByte = Files.readAllBytes(file);
+                    examenResponse.setPicture(imgByte);
+
+
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                // resources.add(resource);
+            }
+            examenResponses.add(examenResponse);
+        }
+        return examenResponses;
     }
 }
 

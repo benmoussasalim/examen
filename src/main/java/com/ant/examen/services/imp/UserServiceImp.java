@@ -127,9 +127,9 @@ public class UserServiceImp implements UserService {
 
         User user= userRepository.findById(id).orElse(null);
 
+        if(user.getImage()!=null) {
 
-
-        Path rootLocation = Paths.get(uploadDirectory);
+            Path rootLocation = Paths.get(uploadDirectory);
 
             Path file = rootLocation.resolve(user.getImage());
             try {
@@ -137,14 +137,14 @@ public class UserServiceImp implements UserService {
                 ImageResponse imgResponse = new ImageResponse();
 
                 imgResponse.setPicture(imgByte);
-                return  imgResponse;
+                return imgResponse;
 
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             // resources.add(resource);
-
+        }
 
 
         return null;
