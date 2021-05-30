@@ -1,5 +1,7 @@
 package com.ant.examen.controllers;
 
+import com.ant.examen.dto.ExamenResponse;
+import com.ant.examen.dto.FilterRequest;
 import com.ant.examen.dto.MessageResponse;
 import com.ant.examen.entities.Examen;
 import com.ant.examen.entities.Question;
@@ -62,9 +64,9 @@ public class ExamenController {
         return examenService.findByTheme(id);
     }
 
-    @GetMapping("/examenNotExpired")
-    public List<Examen> findNotExpired() {
-        return examenService.findNotExpired();
+    @PostMapping("/examenNotExpired")
+    public List<ExamenResponse> findNotExpired(@RequestBody FilterRequest filterRequest) {
+        return examenService.findNotExpired(filterRequest);
     }
 }
 

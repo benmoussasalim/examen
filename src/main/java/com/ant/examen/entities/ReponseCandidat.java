@@ -13,7 +13,7 @@ import lombok.Data;
 public class ReponseCandidat implements Serializable {
    @Id
     private Integer id;
-    private boolean statut;
+    private Boolean statut;
     @ManyToOne
     private Reponse reponse;
     @ManyToOne

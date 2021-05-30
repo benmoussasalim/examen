@@ -1,6 +1,7 @@
 package com.ant.examen.services.imp;
 
 import com.ant.examen.dto.ExamenResponse;
+import com.ant.examen.dto.FilterRequest;
 import com.ant.examen.dto.ImageResponse;
 import com.ant.examen.dto.MessageResponse;
 import com.ant.examen.entities.Entreprise;
@@ -11,8 +12,13 @@ import com.ant.examen.repository.ExamenRepository;
 import com.ant.examen.services.ExamenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -92,8 +98,35 @@ public class ExamenServiceImp implements ExamenService {
     }
 
     @Override
-    public List<ExamenResponse> findNotExpired() {
-       List<Examen>examens = examenRepository.findByDateExpirationLessThanEqual(new Date());
+    public List<ExamenResponse> findNotExpired(FilterRequest filterRequest) {
+
+
+        Specification<Examen> specification = new Specification<Examen>() {
+
+            @Override
+            public Predicate toPredicate(Root<Examen> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+
+                List<Predicate> predicates = new ArrayList<>();
+
+                if (filterRequest.getLibelle()!=null && !filterRequest.getLibelle().isEmpty()) {
+                    predicates.add(criteriaBuilder.like((root.get("libelle")), "%" + filterRequest.getLibelle()+ "%"));
+                }
+
+                if (filterRequest.getTheme() !=null) {
+                    predicates.add(criteriaBuilder.equal(root.get("theme"), filterRequest.getTheme()));
+                }
+
+                if (filterRequest.getEntreprise() !=null) {
+                    predicates.add(criteriaBuilder.equal(root.get("entreprise"), filterRequest.getEntreprise()));
+                }
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dateExpiration"), new Date()));
+                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            }
+
+        };
+        
+        
+       List<Examen>examens = examenRepository.findAll(specification);
         List<ExamenResponse> examenResponses = new ArrayList<>();
         for (Examen exam: examens){
             ExamenResponse examenResponse = new ExamenResponse();

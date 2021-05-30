@@ -1,6 +1,7 @@
 package com.ant.examen.services;
 
 import com.ant.examen.dto.ExamenResponse;
+import com.ant.examen.dto.FilterRequest;
 import com.ant.examen.dto.MessageResponse;
 import com.ant.examen.entities.Examen;
 import com.ant.examen.entities.Question;
@@ -17,5 +18,6 @@ public interface ExamenService {
         public Examen findById(Integer id);
         public List<Examen> findByTheme(Integer id);
         public List<Examen> findByDateExpiration(Date dataExpiration);
-        public List<ExamenResponse> findNotExpired();
+        public List<ExamenResponse> findNotExpired(FilterRequest filterRequest);
+
 }
