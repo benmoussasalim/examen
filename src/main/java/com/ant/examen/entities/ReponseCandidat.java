@@ -2,9 +2,7 @@ package com.ant.examen.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.Data;
 
@@ -12,6 +10,7 @@ import lombok.Data;
 @Data
 public class ReponseCandidat implements Serializable {
    @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Boolean statut;
     @ManyToOne
