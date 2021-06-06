@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ReponseCandidatResponse {
     private Integer id;
-    private Boolean statut;
+    private boolean statut;
 
     private ReponseResponse reponse;
 }

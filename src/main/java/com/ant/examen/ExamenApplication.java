@@ -21,11 +21,12 @@ public class ExamenApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Participation participation = new Participation();
+      /*  Participation participation = new Participation();
         ParticipationId id = new ParticipationId();
         id.setCandidatId(1);
         id.setExamenId(3);
         participation.setId(id);
-        questionRepository.findQuestionByParticipation(participation).forEach(q-> System.out.println(q.getLibelle()));
+        questionRepository.findQuestionByParticipation(participation)
+                .forEach(q-> System.out.println(q.getLibelle()));*/
     }
 }

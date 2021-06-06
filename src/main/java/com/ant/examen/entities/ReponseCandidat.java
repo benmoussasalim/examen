@@ -12,7 +12,7 @@ public class ReponseCandidat implements Serializable {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Boolean statut;
+    private boolean statut;
     @ManyToOne
     private Reponse reponse;
     @ManyToOne
