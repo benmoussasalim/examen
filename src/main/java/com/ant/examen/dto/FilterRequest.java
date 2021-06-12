@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class FilterRequest {
+    private Integer idCandidat;
     private Theme theme;
     private Entreprise entreprise;
     private String libelle;

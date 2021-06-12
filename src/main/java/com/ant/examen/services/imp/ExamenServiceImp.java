@@ -4,11 +4,9 @@ import com.ant.examen.dto.ExamenResponse;
 import com.ant.examen.dto.FilterRequest;
 import com.ant.examen.dto.ImageResponse;
 import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.entities.Entreprise;
-import com.ant.examen.entities.Examen;
-import com.ant.examen.entities.Question;
-import com.ant.examen.entities.Theme;
+import com.ant.examen.entities.*;
 import com.ant.examen.repository.ExamenRepository;
+import com.ant.examen.repository.ParticipationRepository;
 import com.ant.examen.services.ExamenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +30,8 @@ public class ExamenServiceImp implements ExamenService {
     private String uploadDirectory;
     @Autowired
     private ExamenRepository examenRepository;
+    @Autowired
+    private ParticipationRepository participationRepository;
     @Override
     public MessageResponse save(Examen examen) {
         examen.setDateCreation(new Date());
@@ -129,8 +129,18 @@ public class ExamenServiceImp implements ExamenService {
        List<Examen>examens = examenRepository.findAll(specification);
         List<ExamenResponse> examenResponses = new ArrayList<>();
         for (Examen exam: examens){
+
             ExamenResponse examenResponse = new ExamenResponse();
             examenResponse.setExamen(exam);
+
+            ParticipationId id = new ParticipationId();
+            id.setExamenId(exam.getId());
+            id.setCandidatId(filterRequest.getIdCandidat());
+           Participation participation = participationRepository.findById(id).orElse(null);
+            if(participation!=null) {
+                examenResponse.setFinished(participation.isFini());
+            }
+
 
             if(exam.getEntreprise().getImage()!=null) {
 
