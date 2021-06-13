@@ -1,9 +1,8 @@
 package com.ant.examen.controllers;
 
-import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.dto.ParticipationResponse;
+import com.ant.examen.responses.MessageResponse;
+import com.ant.examen.responses.ParticipationResponse;
 import com.ant.examen.entities.Participation;
-import com.ant.examen.entities.Question;
 import com.ant.examen.services.ParticipationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +29,9 @@ public class ParticipationController {
     @GetMapping("/participationbycandidat/{id}")
     public List<Participation> findByCandidat(@PathVariable Integer id){
         return participationService.findByCandidat(id);
+    }
+    @GetMapping("/all")
+    public List<Participation> findAll(){
+        return participationService.findAll();
     }
 }

@@ -1,9 +1,9 @@
 package com.ant.examen.services.imp;
 
-import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.dto.ParticipationResponse;
-import com.ant.examen.dto.QuestionResponse;
-import com.ant.examen.dto.ReponseCandidatResponse;
+import com.ant.examen.responses.MessageResponse;
+import com.ant.examen.responses.ParticipationResponse;
+import com.ant.examen.responses.QuestionResponse;
+import com.ant.examen.responses.ReponseCandidatResponse;
 import com.ant.examen.entities.*;
 import com.ant.examen.repository.*;
 import com.ant.examen.services.ParticipationService;
@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -136,5 +137,10 @@ public class ParticipationServiceImp implements ParticipationService {
         Candidat candidat = new Candidat();
         candidat.setId(id);
         return participationRepository.findByCandidat(candidat);
+    }
+
+    @Override
+    public List<Participation> findAll() {
+        return participationRepository.findAll(Sort.by("score").descending().and(Sort.by("examen")));
     }
 }

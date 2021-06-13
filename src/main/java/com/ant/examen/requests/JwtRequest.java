@@ -1,4 +1,4 @@
-package com.ant.examen.dto;
+package com.ant.examen.requests;
 
 import lombok.Data;
 

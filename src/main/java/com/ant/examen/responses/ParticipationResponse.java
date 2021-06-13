@@ -1,7 +1,6 @@
-package com.ant.examen.dto;
+package com.ant.examen.responses;
 
 import com.ant.examen.entities.Participation;
-import com.ant.examen.entities.Question;
 import lombok.Data;
 
 import java.util.List;

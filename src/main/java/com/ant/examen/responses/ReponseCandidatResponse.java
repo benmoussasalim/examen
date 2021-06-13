@@ -1,6 +1,5 @@
-package com.ant.examen.dto;
+package com.ant.examen.responses;
 
-import com.ant.examen.entities.Reponse;
 import lombok.Data;
 
 

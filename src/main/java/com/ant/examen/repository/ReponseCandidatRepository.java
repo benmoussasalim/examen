@@ -13,7 +13,8 @@ public interface ReponseCandidatRepository extends JpaRepository<ReponseCandidat
     @Query("select rc from ReponseCandidat rc inner join rc.reponse rp where rp.question=:question " +
             "and rc.participation=:participation")
     List<ReponseCandidat> findByQuestion(Question question, Participation participation);
-  /*  @Query("select rc from ReponseCandidat rc inner join rc.reponse rp where rp.question=:question ")
-    List<ReponseCandidat> findByQuestion(Question question);*/
+
+
+
     List<ReponseCandidat> findByParticipation(Participation participation);
 }

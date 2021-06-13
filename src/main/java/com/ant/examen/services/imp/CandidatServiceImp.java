@@ -1,6 +1,6 @@
 package com.ant.examen.services.imp;
 
-import com.ant.examen.dto.MessageResponse;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.entities.Candidat;
 import com.ant.examen.listners.OnRegistrationCompleteEvent;
 import com.ant.examen.repository.CandidatRepository;

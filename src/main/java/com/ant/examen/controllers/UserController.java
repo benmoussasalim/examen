@@ -1,12 +1,11 @@
 package com.ant.examen.controllers;
 
-import com.ant.examen.dto.ImageResponse;
-import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.dto.PasswordRequest;
+
+import com.ant.examen.requests.PasswordRequest;
+import com.ant.examen.responses.ImageResponse;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.services.UserService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +19,7 @@ public class UserController {
 
     @PatchMapping
     public MessageResponse changePassword(@RequestBody PasswordRequest passwordRequest) {
-        return  userService.changePassword(passwordRequest);
+        return userService.changePassword(passwordRequest);
     }
 
     @PostMapping("/{id}")

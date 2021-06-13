@@ -1,9 +1,8 @@
 package com.ant.examen.services.imp;
 
-import com.ant.examen.dto.ExamenResponse;
-import com.ant.examen.dto.FilterRequest;
-import com.ant.examen.dto.ImageResponse;
-import com.ant.examen.dto.MessageResponse;
+import com.ant.examen.responses.ExamenResponse;
+import com.ant.examen.requests.FilterRequest;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.entities.*;
 import com.ant.examen.repository.ExamenRepository;
 import com.ant.examen.repository.ParticipationRepository;

@@ -1,4 +1,4 @@
-package com.ant.examen.dto;
+package com.ant.examen.requests;
 
 import com.ant.examen.entities.Entreprise;
 import com.ant.examen.entities.Theme;

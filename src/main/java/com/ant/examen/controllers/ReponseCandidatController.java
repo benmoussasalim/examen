@@ -1,7 +1,8 @@
 package com.ant.examen.controllers;
 
-import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.entities.Reponse;
+import com.ant.examen.responses.MessageResponse;
+import com.ant.examen.responses.ParticipationResultResponse;
+import com.ant.examen.responses.QuestionResultResponse;
 import com.ant.examen.entities.ReponseCandidat;
 import com.ant.examen.services.ReponseCandidatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class ReponseCandidatController {
     @PostMapping
     public MessageResponse save(@RequestBody List<ReponseCandidat> reponseCandidats) {
         return reponseCandidatService.save(reponseCandidats);
+    }
+
+    @GetMapping("/{idExamen}/{idCandidat}")
+    public ParticipationResultResponse findByParticipation(@PathVariable Integer idExamen, @PathVariable Integer idCandidat) {
+        return  reponseCandidatService.findByParticipation(idExamen, idCandidat);
     }
 }

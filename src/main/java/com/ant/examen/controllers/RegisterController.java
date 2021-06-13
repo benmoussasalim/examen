@@ -1,6 +1,6 @@
 package com.ant.examen.controllers;
 
-import com.ant.examen.dto.MessageResponse;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.entities.Candidat;
 import com.ant.examen.entities.Entreprise;
 import com.ant.examen.services.CandidatService;

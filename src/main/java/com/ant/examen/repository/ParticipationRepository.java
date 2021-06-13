@@ -11,4 +11,5 @@ import java.util.List;
 public interface ParticipationRepository extends JpaRepository<Participation, ParticipationId> {
 
     List<Participation> findByCandidat(Candidat candidat);
+
 }

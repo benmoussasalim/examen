@@ -1,13 +1,12 @@
 package com.ant.examen.services.imp;
 
-import com.ant.examen.dto.ImageResponse;
-import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.dto.PasswordRequest;
-import com.ant.examen.entities.Candidat;
+import com.ant.examen.requests.PasswordRequest;
 import com.ant.examen.entities.User;
 import com.ant.examen.entities.VerificationToken;
 import com.ant.examen.repository.UserRepository;
 import com.ant.examen.repository.VerificationTokenRepository;
+import com.ant.examen.responses.ImageResponse;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +34,7 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
     @Value("${upload-dir}")
     private String uploadDirectory;
+
     @Override
     public void createVerificationToken(User user, String token) {
         VerificationToken myToken = new VerificationToken(token, user);
@@ -49,8 +49,8 @@ public class UserServiceImp implements UserService {
             return new MessageResponse(false, "Attention", "Token invalid");
 
         }
-        if (verificationToken.isEnabled()){
-            return  new MessageResponse(false,"Attention","Token déja untilisée");
+        if (verificationToken.isEnabled()) {
+            return new MessageResponse(false, "Attention", "Token déja untilisée");
         }
         verificationToken.setEnabled(false);
         tokenRepository.save(verificationToken);
@@ -70,15 +70,16 @@ public class UserServiceImp implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findOneByEmail(username).orElse(null);
     }
+
     @Override
     public MessageResponse changePassword(PasswordRequest passwordRequest) {
 
         User user = userRepository.findById(passwordRequest.getId()).orElse(null);
-        if(user ==null) {
+        if (user == null) {
             return new MessageResponse(false, "Attention", "Utilisateur n'existe pas");
         }
         boolean matched = passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword());
-        if(!matched) {
+        if (!matched) {
             return new MessageResponse(false, "Attention", "Ancien mot de passe incorrect");
         }
 
@@ -93,28 +94,23 @@ public class UserServiceImp implements UserService {
     }
 
 
-
     @Override
     public MessageResponse upload(MultipartFile file, Integer idCandidat) {
 
-        User user= userRepository.getOne(idCandidat);
+        User user = userRepository.getOne(idCandidat);
 
 
+        Path rootLocation = Paths.get(uploadDirectory);
 
+        try {
+            Files.copy(file.getInputStream(), rootLocation.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+            user.setImage(file.getOriginalFilename());
+            userRepository.save(user);
+        } catch (IOException e) {
 
-
-            Path rootLocation = Paths.get(uploadDirectory);
-
-            try {
-                Files.copy(file.getInputStream(), rootLocation.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
-               user.setImage(file.getOriginalFilename());
-               userRepository.save(user);
-            } catch (IOException e) {
-
-                e.printStackTrace();
-                return new MessageResponse(false, "Attention", "Opération non effectuée");
-            }
-
+            e.printStackTrace();
+            return new MessageResponse(false, "Attention", "Opération non effectuée");
+        }
 
 
         return new MessageResponse(true, "Succès", "Opération effectuée");
@@ -125,9 +121,9 @@ public class UserServiceImp implements UserService {
     public ImageResponse findImageByUser(Integer id) {
 
 
-        User user= userRepository.findById(id).orElse(null);
+        User user = userRepository.findById(id).orElse(null);
 
-        if(user.getImage()!=null) {
+        if (user.getImage() != null) {
 
             Path rootLocation = Paths.get(uploadDirectory);
 

@@ -1,5 +1,6 @@
 package com.ant.examen.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Invitation implements Serializable {
     private Integer id;
     private Date dateInvitation;
     private String etat;
+    @JsonIgnore
     @OneToOne
     private Participation participation;
 }

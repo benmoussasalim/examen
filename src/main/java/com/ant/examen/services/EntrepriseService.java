@@ -1,7 +1,6 @@
 package com.ant.examen.services;
 
-import com.ant.examen.dto.MessageResponse;
-import com.ant.examen.entities.Candidat;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.entities.Entreprise;
 
 import java.util.List;
