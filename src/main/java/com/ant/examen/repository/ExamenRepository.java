@@ -16,9 +16,12 @@ public interface ExamenRepository extends JpaRepository<Examen, Integer> {
     List<Examen> findByEntreprise(Entreprise entreprise);
     Examen getById(Integer id);
     List<Examen> findByTheme(Theme theme);
+    Integer countByTheme(Theme theme);
     List<Examen> findByDateExpiration(Date dataExpiration);
 
     List<Examen> findAll(Specification<Examen> specification);
+
+    Integer countByThemeAndEntreprise(Theme theme, Entreprise entreprise);
 
 
     //  List<Examen> findByDateExpirationGreaterThanEqual(Specification<Examen> specification, Date date);

@@ -1,8 +1,8 @@
 package com.ant.examen.controllers;
 
-import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.entities.Candidat;
 import com.ant.examen.entities.Entreprise;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.services.CandidatService;
 import com.ant.examen.services.EntrepriseService;
 import com.ant.examen.services.UserService;
@@ -28,8 +28,8 @@ public class RegisterController {
     public MessageResponse registerEntreprise(@RequestBody Entreprise entreprise){
         return entrepriseService.register(entreprise);
     }
-    @GetMapping("/confirm")
-    public MessageResponse confirm(@RequestParam ("token") String token){
+    @GetMapping("/confirm/{token}")
+    public MessageResponse confirm(@PathVariable  String token){
         return userService.activateAccount(token);
     }
 }

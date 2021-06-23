@@ -1,6 +1,7 @@
 package com.ant.examen.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,8 +15,9 @@ public class Invitation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Date dateInvitation;
-    private String etat;
-    @JsonIgnore
+    private boolean etat;
+    private String roomName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToOne
     private Participation participation;
 }

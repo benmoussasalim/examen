@@ -32,7 +32,7 @@ public class Participation implements Serializable {
     @ManyToOne
     @JoinColumn(name = "examen_id", insertable = false, updatable = false)
     private Examen examen;
-    @OneToOne
+    @OneToOne(mappedBy = "participation")
     private Invitation invitation;
     @OneToMany(mappedBy = "participation")
     @JsonIgnore

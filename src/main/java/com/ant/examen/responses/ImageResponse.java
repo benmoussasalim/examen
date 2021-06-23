@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ImageResponse {
-private byte[] picture;
+    private byte[] picture;
 }

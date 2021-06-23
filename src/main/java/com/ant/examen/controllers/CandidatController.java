@@ -1,7 +1,8 @@
 package com.ant.examen.controllers;
 
-import com.ant.examen.responses.MessageResponse;
+
 import com.ant.examen.entities.Candidat;
+import com.ant.examen.responses.MessageResponse;
 import com.ant.examen.services.CandidatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +22,7 @@ public class CandidatController {
     @PutMapping
     public MessageResponse update(@RequestBody Candidat candidat)
     {
+
         return  candidatService.update(candidat);
     }
     @PreAuthorize("hasRole('ADMIN')")

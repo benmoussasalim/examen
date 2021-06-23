@@ -9,4 +9,6 @@ public interface EntrepriseRepository extends JpaRepository<Entreprise, Integer>
     boolean existsByEmailAndId(String email, Integer id);
     boolean existsByIdAndExamensIsNotNull(Integer id);
     Entreprise findByEmail(String email);
+
+    Integer countByEnabled(boolean b);
 }

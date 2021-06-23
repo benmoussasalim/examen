@@ -17,6 +17,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Question getById(Integer id);
 
     List<Question> findByTheme(Theme theme);
+    Integer countByTheme(Theme theme);
 
     @Query("select q from Question q where q.theme=:theme ORDER BY RAND()")
     public List<Question> findRandomQuestion(Theme theme, Pageable pageable);

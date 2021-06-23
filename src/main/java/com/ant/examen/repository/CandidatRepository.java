@@ -10,4 +10,6 @@ public interface CandidatRepository extends JpaRepository<Candidat, Integer> {
     boolean existsByIdAndParticipationsIsNotNull(Integer id);
     Candidat findByEmail(String email);
     boolean existsByEmailAndId(String email, Integer id);
+
+    Integer countByEnabled(boolean b);
 }

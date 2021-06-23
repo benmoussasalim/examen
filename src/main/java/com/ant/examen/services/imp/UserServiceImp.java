@@ -49,7 +49,7 @@ public class UserServiceImp implements UserService {
             return new MessageResponse(false, "Attention", "Token invalid");
 
         }
-        if (verificationToken.isEnabled()) {
+        if (!verificationToken.isEnabled()) {
             return new MessageResponse(false, "Attention", "Token déja untilisée");
         }
         verificationToken.setEnabled(false);

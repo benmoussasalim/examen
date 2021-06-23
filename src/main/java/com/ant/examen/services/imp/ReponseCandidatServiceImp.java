@@ -1,15 +1,13 @@
 package com.ant.examen.services.imp;
 
-import com.ant.examen.responses.MessageResponse;
-import com.ant.examen.responses.ParticipationResultResponse;
-import com.ant.examen.responses.QuestionResultResponse;
-import com.ant.examen.entities.Participation;
-import com.ant.examen.entities.ParticipationId;
-import com.ant.examen.entities.Question;
-import com.ant.examen.entities.ReponseCandidat;
+import com.ant.examen.entities.*;
+import com.ant.examen.repository.InvitationRepository;
 import com.ant.examen.repository.ParticipationRepository;
 import com.ant.examen.repository.QuestionRepository;
 import com.ant.examen.repository.ReponseCandidatRepository;
+import com.ant.examen.responses.MessageResponse;
+import com.ant.examen.responses.ParticipationResultResponse;
+import com.ant.examen.responses.QuestionResultResponse;
 import com.ant.examen.services.ReponseCandidatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +24,8 @@ public class ReponseCandidatServiceImp implements ReponseCandidatService {
     private QuestionRepository questionRepository;
     @Autowired
     private ParticipationRepository participationRepository;
+    @Autowired
+    private InvitationRepository invitationRepository;
 
     @Transactional
     @Override
@@ -44,6 +44,8 @@ public class ReponseCandidatServiceImp implements ReponseCandidatService {
         id.setExamenId(idExamen);
         participation.setId(id);
         participation = participationRepository.findById(id).orElse(null);
+     /*   Invitation invitation = invitationRepository.findByParticipation(participation);
+        participation.setInvitation(invitation);*/
         participationResultResponse.setParticipation(participation);
         List<QuestionResultResponse> questionResultResponses = new ArrayList<>();
         List<Question> questions = questionRepository.findQuestionByParticipation(participation);
